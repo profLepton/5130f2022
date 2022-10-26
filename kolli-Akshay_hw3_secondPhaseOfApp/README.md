@@ -30,4 +30,4 @@ I collect their location from their profile apge.
 
 I collect their activity and last seen time by storing their login and logout times in the sqlite database.
 
-I am creating a permission manager system, and have deemed other information unnecessary.
+I am creating a permission number management system, and have deemed other information unnecessary.
