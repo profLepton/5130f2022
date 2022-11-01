@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if not current_user.is_anonymous %} 
+    <h1>Hi, {{ current_user.firstName }} {{ current_user.lastName }}!</h1>
+    {% else %} 
+    <div>
+        <h1>Welcome to Permo! </h1>
+        <p><a href="{{ url_for('login') }}"><button>LOGIN</button></a></p>
+    </div>
+    {% endif %}
+
+{% endblock %}
