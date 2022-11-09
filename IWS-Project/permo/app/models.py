@@ -67,3 +67,10 @@ class Post(db.Model):
     def __repr__(self):
         return '<Post {}>'.format(self.body)
 
+class ClassTable(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    class_department = db.Column(db.String(140), index=True)
+    class_code = db.Column(db.String(140), index=True)
+    professor = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+
