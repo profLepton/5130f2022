@@ -10,7 +10,7 @@ Right now the secret key is a string in config.py. This is not safe. In the futu
 # Stop using Gravatar icons at some point
 Allow users to upload their own icons at some point.
 
-#  Fix the time.  
+# Fix the time.  
 
 # Add functionality to remember me.
 
