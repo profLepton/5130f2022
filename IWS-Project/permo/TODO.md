@@ -1,9 +1,6 @@
 # Change the secret key storage
 Right now the secret key is a string in config.py. This is not safe. In the future store it as an environment variable and import it using OS.
 
-# Learn API TODO
-
-# Accept only .edu emails and Differentiate between professors and students.
 
 # Add permission key management on profile page.
 
@@ -17,8 +14,6 @@ Allow users to upload their own icons at some point.
 # Add professor and student registrations, update database, fix login
 
 # Add permission number mechanisms already for god's sake
-
-# Change edit profile page.
 
 # Edit default home page.
 
@@ -38,5 +33,6 @@ Allow users to upload their own icons at some point.
 
 # Add a section to add and store permission numbers
 
+# Add password REGEX
 
-
+# Add checks for Add class.

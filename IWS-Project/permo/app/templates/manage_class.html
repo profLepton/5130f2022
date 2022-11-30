@@ -1,0 +1,25 @@
+{% if current_user.is_professor %}
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    
+
+    <p>
+        {% for request in pn_requests %}
+            <p> <h3> <a>{{ request.student_id}}</a> </h3></p>
+            <p> <h3> {{ request.date }} </h3></p>
+            <p> Status : {{ request.status }} </p>
+            <button> Approve </button>
+            <button> Decline </button>
+        {% endfor %}
+    </p>
+
+{% endblock %}
+
+{% else %}
+
+<h1> You do not have permission to view this screen. </h1>
+
+{% endif %}

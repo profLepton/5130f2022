@@ -3,8 +3,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.urls import url_parse
 from app import app, db, Config
-from app.forms import LoginForm, ProfessorRegistrationForm, StudentRegistrationForm, EditProfileForm, ResetPasswordForm
-from app.models import User
+from app.forms import LoginForm, ProfessorRegistrationForm, StudentRegistrationForm, EditProfileForm, ResetPasswordForm, AddClassesForm
+from app.models import User, CollegeCourse, pn_requests
 from datetime import datetime
 from app.forms import ResetPasswordRequestForm
 from app.emails import send_password_reset_email
@@ -12,9 +12,10 @@ from app.emails import send_password_reset_email
 
 @app.route('/')
 @app.route('/index')
-# @login_required
+@login_required
 def index():
-    return render_template('index.html', title='Home' )
+    classes = CollegeCourse.query.filter_by(professor_id=current_user.id)
+    return render_template('index.html', title='Home', classes= classes)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -133,3 +134,21 @@ def reset_password(token):
         flash('Your password has been reset.')
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
+
+@app.route('/add_class/', methods=['GET', 'POST'])
+def add_class():
+    if current_user.is_professor:
+        form = AddClassesForm()
+        if form.validate_on_submit():
+            collegeclass = CollegeCourse(course_name=form.class_name.data, professor_id= current_user.id)
+            db.session.add(collegeclass)
+            db.session.commit()
+            flash('Class has been added.')
+            return redirect(url_for('index'))
+    return render_template('add_class.html', form=form)
+
+@app.route('/manage_class/<class_id>', methods=['GET', 'POST'])
+def manage_class(class_id):
+    form = None
+    #requests = pn_requests.query.filter_by(course_id = class_id)
+    return render_template('manage_class.hmtl', form=form, requests=requests)
