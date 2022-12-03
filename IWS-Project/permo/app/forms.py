@@ -10,6 +10,9 @@ from flask_login import current_user
 
 NAME_REGEX = "^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"
 
+class EmptyForm(FlaskForm):
+    submit = SubmitField('Submit')
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -84,4 +87,16 @@ class ResetPasswordForm(FlaskForm):
 
 class AddClassesForm(FlaskForm):
     class_name = StringField('Class Name')
+    submit = SubmitField('Submit')
+
+class MakeRequestForm(FlaskForm):
+    message = StringField('message')
+    submit = SubmitField('Submit')
+
+
+class AddPN(FlaskForm):
+    pn = StringField('Permission numbers')
+
+class AddPermissionNumbers(FlaskForm):
+    permission_numbers = StringField('Permission numbers')
     submit = SubmitField('Submit')

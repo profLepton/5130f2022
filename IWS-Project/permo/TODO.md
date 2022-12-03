@@ -36,3 +36,11 @@ Allow users to upload their own icons at some point.
 # Add password REGEX
 
 # Add checks for Add class.
+
+# Add tests.
+
+# Add error pages :)
+
+# Add regex for permission numbers
+
+# Prevent student from making duplicate requests

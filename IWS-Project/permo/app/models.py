@@ -8,14 +8,17 @@ from app import db, login
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# permission_numbers = db.Table('permission_numbers',
-#     db.Column('id', db.Integer, primary_key = True),
-#     db.Column('permission_number', db.Integer),
-#     db.Column('Assigned', db.Boolean, index=True),
-#     db.Column('course_name', db.String, db.ForeignKey('college_course.course_name'), index=True),
-#     db.Column('student_id', db.Integer, db.ForeignKey('user.id'), index=True),
-# )
 
+
+class PermissionNumbers(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    permission_number = db.Column(db.Integer, index=True)
+    assigned = db.Column(db.Boolean, index=True)
+    course_name = db.Column(db.String, index = True)
+    course_id = db.Column(db.Integer, index= True)
+    professor_id = db.Column(db.Integer, index = True)
+    student_id = db.Column(db.Integer, index=True)
+    request_id = db.Column(db.Integer, index=True)
 
 
 class CollegeCourse(db.Model):
@@ -26,19 +29,23 @@ class CollegeCourse(db.Model):
     def __repr__(self):
         return '<CollegeCourse {}'.format(self.course_name)
     
+class pn_requests(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column( db.Boolean, index = True, default = False)
+    message = db.Column(db.String(512))
+    class_name = db.Column( db.String(64), index=True)
+    course_id = db.Column( db.Integer, index=True)
+    professor_id = db.Column( db.Integer, index=True)
+    student_id = db.Column( db.Integer, index=True)
+    owner = db.Column(db.Integer, db.ForeignKey('user.id'), index=True)
+    permission_number = db.Column( db.Integer)
+    date = db.Column( db.DateTime, default=datetime.utcnow)
 
-pn_requests = db.Table('requests',
-db.Column('id', db.Integer, primary_key=True),
-db.Column('status', db.Boolean, index = True),
-db.Column('class_name', db.String(64), index=True),
-db.Column('course_id', db.Integer, index=True),
-db.Column('professor_id', db.Integer, index=True),
-db.Column('student_id', db.Integer, index=True),
-db.Column('owner', db.Integer, db.ForeignKey('user.id'), index=True),
-db.Column('permission_number', db.Integer),
-db.Column('date', db.DateTime, default=datetime.utcnow)
-)
 
+    def approve(self):
+        self.status = True
+    
+    
 
 
 class User(UserMixin, db.Model):

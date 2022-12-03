@@ -17,4 +17,22 @@
         {% endif %}
     </table>
     ...
+    {% if not current_user.is_professor and user.is_professor %}
+    <table>
+        <tr valign="top"> <h2>Courses offered </h2> </tr>
+        
+        {% for course in courses %}
+        <tr>
+            <td>
+                <p>{{ course.course_name }}</p> 
+                <a href="{{ url_for('make_request', class_id = course.id) }}"><button>Request a Permission Number</button></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tr>
+
+        
+    </table>
+    {% endif %}
+
 {% endblock %}
